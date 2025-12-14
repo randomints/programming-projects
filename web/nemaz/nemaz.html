@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nemaz</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="main-split">
+    <div class="right-split">
+      <div class="item1 card">
+        <form>
+          <label for="">Geolocation</label>
+          <select class="geo">
+            <option value="Manual">Manual</option>
+            <option value="Approximate">Approximate</option>
+            <option value="Precise">Precise</option>
+          </select>
+        </form>
+        <form class="manual">
+          <label for="manual">Manual Location</label>
+          <input type="text" name="manual" class="manualText">
+        </form>
+      </div>
+
+      <div class="item2 card">
+        <h3>December</h3>
+        <div class="days">
+          <p>Sun</p>
+          <p>Mon</p>
+          <p>Tue</p>
+          <p>Wed</p>
+          <p>Thu</p>
+          <p>Fri</p>
+          <p>Sat</p>
+        </div>
+        <div class="dates">
+
+        </div>
+      </div>
+
+      <div class="item3 card">
+        <form class="dateForm">
+          <label for="dateChange" class="dateLabel">Gregorian to Hijri. enter as DD-MM-YYYY</label>
+          <input type="text" name="dateChange" class="dateInput">
+          <button type="button" class="dateButton">􁁀 </button>
+        </form>
+        <p class="dateOutput"></p>
+      </div>
+
+    </div>
+
+    <div class="left-split">
+
+      <div class="item4 card">
+        Next Prayer: 
+      </div>
+
+      <div class="item5 card">
+        <div class="container">
+          <div class="fajrTime">Fajr: </div>
+          <div class="thuhrTime">Dhuhr: </div>
+          <div class="asrTime">Asr: </div>
+          <div class="magribTime">Magrib: </div>
+          <div class="ishaTime">Isha: </div>
+        </div>
+      </div>
+
+      <div class="item6 card">
+        <div class="sunrise">
+
+        </div>
+        <div class="sunset">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="index.js"></script>
+</body>
+
+</html>
