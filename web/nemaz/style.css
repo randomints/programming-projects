@@ -10,10 +10,11 @@ html {
 
 body {
   font: 1.2em / 1.5 sans-serif;
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Icons';
+  font-family:
+    -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Icons";
 }
 
-.main-split>* {
+.main-split > * {
   color: black;
 }
 
@@ -38,18 +39,26 @@ body {
   border-radius: 1%;
   box-shadow: 1px 1px 5px grey;
   margin: 5px;
+
+  position: relative;
+  transition: 1s;
+  top: 0px;
+}
+
+.card:hover {
+  top: 5px;
 }
 
 .item1 {
-  padding: 20px;
+  padding: 15px;
 }
 
 .item2 {
-  padding: 20px;
+  padding: 15px;
 }
 
 .item3 {
-  padding: 20px;
+  padding: 15px;
 }
 
 .item4 {
@@ -64,7 +73,7 @@ body {
 .container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  margin: 20px;
+  margin: 15px;
 }
 
 .container div {
@@ -72,10 +81,14 @@ body {
   text-align: center;
 }
 
+.item6 {
+  padding: 15px;
+}
+
 h3 {
   text-align: center;
   margin: 0;
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .days {
@@ -85,11 +98,20 @@ h3 {
   margin: 0;
 }
 
-
 .dates {
   text-align: center;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr;
   font-size: 15px;
+}
+
+input {
+  transition-duration: 1s;
+}
+
+input:hover {
+  background-color: lightgrey;
+  transform: scale(1.03);
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
 }
