@@ -1,2 +1,2 @@
-# Arduino Projects
-This is where most of my projects for my arduino are. Some better, some worse, all free to use
+# Programming Projects
+this is a repo of every major programming project I have ever done. It doesn't have much in it right now, but if you check back in a few months, it might! 
