@@ -9,23 +9,26 @@ function App() {
   const [windSpeed, setWindSpeed] = useState("");
   const [precipitation, setPrecipitation] = useState("");
   const [userLocation, setUserLocation] = useState(null);
-  let latitude;
-  let longitude;
 
   useEffect(() => {
-    const getAddress = async () => {
-      const position = await this.getCoordinates();
-      latitude = position.coords.latitude;
-      longitude = position.coords.longitude;
-      console.log(latitude);
-      setUserLocation({ latitude, longitude });
+    const getUserLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            setUserLocation({ latitude, longitude });
+            console.log(latitude);
+          },
+          (error) => {
+            console.error("Error getting user location:", error);
+          },
+        );
+      } else {
+        console.error("Geolocation is not supported by this browser.");
+      }
     };
-
-  let longitude;
-    getAddress();
+    getUserLocation();
   }, []);
-
-  const WEATHER_URL = `https://api.open-meteo.com/v1/forecast?latitude=${userLocation.latitude}&longitude=${userLocation.longitude}&current=temperature_2m,wind_speed_10m,precipitation&hourly=temperature_2m,wind_speed_10m,precipitation&timezome=Asia/Qatar`;
 
   function weeklyMinMax(json, type) {
     let arr = [];
@@ -42,20 +45,23 @@ function App() {
   }
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(WEATHER_URL);
-      const json = await response.json();
-      setTemp(json.current.temperature_2m);
-      console.log(json);
+    if (userLocation !== null) {
+      const WEATHER_URL = `https://api.open-meteo.com/v1/forecast?latitude=${userLocation.latitude}&longitude=${userLocation.longitude}&current=temperature_2m,wind_speed_10m,precipitation&hourly=temperature_2m,wind_speed_10m,precipitation&timezome=Asia/Qatar`;
+      const fetchData = async () => {
+        const response = await fetch(WEATHER_URL);
+        const json = await response.json();
+        setTemp(json.current.temperature_2m);
 
-      setHourlyTemp(json.hourly.temperature_2m.slice(0, 24));
-      setWeeklyMax(weeklyMinMax(json, false));
-      setWeeklyMin(weeklyMinMax(json, true));
-      setWindSpeed(`${json.current.wind_speed_10m} km/h`);
-      setPrecipitation(`${json.current.precipitation} ml`);
-    };
-    fetchData();
-  }, []);
+        setHourlyTemp(json.hourly.temperature_2m.slice(0, 24));
+        setWeeklyMax(weeklyMinMax(json, false));
+        setWeeklyMin(weeklyMinMax(json, true));
+        setWindSpeed(`${json.current.wind_speed_10m} km/h`);
+        setPrecipitation(`${json.current.precipitation} ml`);
+      };
+
+      fetchData();
+    }
+  }, [userLocation]);
 
   return (
     <>
@@ -114,7 +120,12 @@ function App() {
 
           <div>
             <h3>Coordinates</h3>
-            <p>{userLocation}</p>
+            <p>
+              Latitude: {userLocation ? Math.round(userLocation.latitude) : ""}
+            </p>
+            <p>
+              Longitude: {userLocation ? Math.round(userLocation.longitude) : ""}
+            </p>
           </div>
         </div>
       </div>
