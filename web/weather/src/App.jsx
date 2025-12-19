@@ -1,9 +1,6 @@
 import Graph from "./components/Graph";
 import { useState, useEffect } from "react";
 
-const WEATHER_URL =
-  "https://api.open-meteo.com/v1/forecast?latitude=25.23&longitude=51.57&current=temperature_2m,wind_speed_10m,precipitation&hourly=temperature_2m,wind_speed_10m,precipitation&timezome=Asia/Qatar";
-
 function App() {
   const [temp, setTemp] = useState(null);
   const [hourlyTemp, setHourlyTemp] = useState([]);
@@ -11,6 +8,24 @@ function App() {
   const [weeklyMin, setWeeklyMin] = useState([]);
   const [windSpeed, setWindSpeed] = useState("");
   const [precipitation, setPrecipitation] = useState("");
+  const [userLocation, setUserLocation] = useState(null);
+  let latitude;
+  let longitude;
+
+  useEffect(() => {
+    const getAddress = async () => {
+      const position = await this.getCoordinates();
+      latitude = position.coords.latitude;
+      longitude = position.coords.longitude;
+      console.log(latitude);
+      setUserLocation({ latitude, longitude });
+    };
+
+  let longitude;
+    getAddress();
+  }, []);
+
+  const WEATHER_URL = `https://api.open-meteo.com/v1/forecast?latitude=${userLocation.latitude}&longitude=${userLocation.longitude}&current=temperature_2m,wind_speed_10m,precipitation&hourly=temperature_2m,wind_speed_10m,precipitation&timezome=Asia/Qatar`;
 
   function weeklyMinMax(json, type) {
     let arr = [];
@@ -99,6 +114,7 @@ function App() {
 
           <div>
             <h3>Coordinates</h3>
+            <p>{userLocation}</p>
           </div>
         </div>
       </div>
